@@ -119,6 +119,7 @@ def construct_tourney_winners(tourney_slots_s, T_matchup_results, Tseeds_map):
 def create_features(all_game_outcomes, tourney_stats_dict, Tseeds_map):
     #create vector for NN -- addition of two team's stats
     input_vec = []
+
     for game in all_game_outcomes:
         matchup = list(tourney_stats_dict[Tseeds_map[game[0][0]]]) + list(tourney_stats_dict[Tseeds_map[game[0][1]]]) + [game[1]]
         input_vec.append(matchup)
@@ -145,3 +146,6 @@ if __name__ == '__main__':
     tournament_champion = Tseeds_map[last_winners_dict['R6CH']]
     
     NN_input_vec = create_features(all_game_outcomes, tourney_stats_dict, Tseeds_map)
+
+    feature_names = ['A_avg_score', 'A_win_pct', 'B_avg_score', 'B_win_pct', 'winner']
+    RF_data = pd.DataFrame(NN_input_vec, columns=feature_names)
