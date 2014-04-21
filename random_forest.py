@@ -30,7 +30,7 @@ def def classify(matchup):
 
 def run_bracket(tourney_slots_s):       
 	tourney_slots_s['winner'] = 0
-	for num in range(1,35):#len(tourney_slots_s)):
+	for num in range(1,len(tourney_slots_s)):
 	    matchup = tourney_slots_s.ix[num]
 	    round_1_flag = True
 	    if list(matchup['strongseed'])[0] == 'R':
