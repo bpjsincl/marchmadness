@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import random
 
-def def classify(matchup):
+def classify(matchup):
     # df['is_train'] = np.random.uniform(0, 1, len(df)) <= .75
     # df.head()
      
