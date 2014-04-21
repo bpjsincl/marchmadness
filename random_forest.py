@@ -23,13 +23,16 @@ def def classify(matchup):
     rand = random.randrange(0,2)
     if rand == 0:
         seed = matchup[2]
+        prob = random.randrange(10,90)
     else:
         seed = matchup[3]
+        prob = random.randrange(10,90)
 #     print seed
-    return seed
+    return seed, prob
 
 def run_bracket(tourney_slots_s):       
 	tourney_slots_s['winner'] = 0
+	tourney_slots_s['prob'] = 0
 	for num in range(1,len(tourney_slots_s)):
 	    matchup = tourney_slots_s.ix[num]
 	    round_1_flag = True
@@ -51,10 +54,12 @@ def run_bracket(tourney_slots_s):
 	            matchup['strongseed'] = list(team_B)[0]
 	            matchup['weakseed'] = list(team_A)[0]
 	    
-	    winner = classify(matchup)
-	    
+	    winner, prob = classify(matchup)
+	    matchup['prob'] = prob
+
 	    if (round_1_flag):
 	        matchup['winner'] = winner
 	    else:
 	        matchup['winner'] = list(winner)[0]
+	        
 	    tourney_slots_s.ix[num] = matchup
