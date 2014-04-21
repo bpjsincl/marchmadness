@@ -65,3 +65,19 @@ def run_bracket(tourney_slots_s, RF_data):
 	        matchup['winner'] = list(winner)[0]
 	        
 	    tourney_slots_s.ix[num] = matchup
+
+def cross_validation(training_data):
+    training_data['is_train'] = np.random.uniform(0, 1, len(RF_data)) <= .75
+    training_data.head()
+     
+    train, test = training_data[training_data['is_train']==True], training_data[training_data['is_train']==False]
+     
+    features = training_data.columns[:4]
+    clf = RandomForestClassifier(n_jobs=2)
+    y, _ = pd.factorize(train['winner'])
+    clf.fit(train[features], y)
+    
+    target_names = np.array(['strongseed', 'weakseed'])
+    preds = target_names[clf.predict(test[features])]
+    cross_tab = pd.crosstab(test['winner'], preds, rownames=['actual'], colnames=['preds'])
+    return cross_tab
