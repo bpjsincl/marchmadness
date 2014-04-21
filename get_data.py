@@ -14,7 +14,11 @@ from __future__ import division
 import numpy as np
 import pandas as pd
 from pprint import pprint
+import os
 
+# main_folder = os.path.dirname(os.path.abspath(__file__)) + '/data_files/'
+main_folder = "/Users/matthewchong/Documents/SCHOOL/SYDE 4B/SYDE 522/marchmadness/data_files/"
+print main_folder
 
 def readfile(main_folder, filename, headings):  
     path = main_folder+filename
@@ -22,7 +26,7 @@ def readfile(main_folder, filename, headings):
     return content
 
 def get_teams(): #get all teams in league 
-    main_folder = "C:\\Users\\Brian\\Documents\\Dropbox\\University\\4B\\SYDE 522 Project\\"
+    # main_folder = "C:\\Users\\Brian\\Documents\\Dropbox\\University\\4B\\SYDE 522 Project\\"
     filename = "teams.csv"
     headings = ['id', 'team_name']
     data = readfile(main_folder,filename,headings)
@@ -30,7 +34,7 @@ def get_teams(): #get all teams in league
     return data
 
 def get_seasons(): #get all seasons
-    main_folder = "C:\\Users\\Brian\\Documents\\Dropbox\\University\\4B\\SYDE 522 Project\\"
+    # main_folder = "C:\\Users\\Brian\\Documents\\Dropbox\\University\\4B\\SYDE 522 Project\\"
     filename = "seasons.csv"
     headings = ['season', 'years', 'dayzero', 'regionW', 'regionX', 'regionY', 'regionZ']
     data = readfile(main_folder,filename,headings)
@@ -38,7 +42,7 @@ def get_seasons(): #get all seasons
     return data
 
 def get_reg_season_results(): #get regular seasons results
-    main_folder = "C:\\Users\\Brian\\Documents\\Dropbox\\University\\4B\\SYDE 522 Project\\"
+    # main_folder = "C:\\Users\\Brian\\Documents\\Dropbox\\University\\4B\\SYDE 522 Project\\"
     filename = "regular_season_results.csv"
     headings = ['season', 'daynum', 'wteam', 'wscore', 'lteam', 'lscore', 'wloc', 'numot']
     data = readfile(main_folder,filename,headings)
@@ -46,7 +50,7 @@ def get_reg_season_results(): #get regular seasons results
     return data
 
 def get_tourney_results(): #all tournaments in known history
-    main_folder = "C:\\Users\\Brian\\Documents\\Dropbox\\University\\4B\\SYDE 522 Project\\"
+    # main_folder = "C:\\Users\\Brian\\Documents\\Dropbox\\University\\4B\\SYDE 522 Project\\"
     filename = "tourney_results.csv"
     headings = ['season', 'daynum', 'wteam', 'wscore', 'lteam', 'lscore', 'numot']
     data = readfile(main_folder,filename,headings)
@@ -54,7 +58,7 @@ def get_tourney_results(): #all tournaments in known history
     return data
 
 def get_tourney_seeds(): #all seeds in known history
-    main_folder = "C:\\Users\\Brian\\Documents\\Dropbox\\University\\4B\\SYDE 522 Project\\"
+    # main_folder = "C:\\Users\\Brian\\Documents\\Dropbox\\University\\4B\\SYDE 522 Project\\"
     filename = "tourney_seeds.csv"
     headings = ['season', 'seed', 'team']
     data = readfile(main_folder,filename,headings)
@@ -62,7 +66,7 @@ def get_tourney_seeds(): #all seeds in known history
     return data
 
 def get_tourney_slots():
-    main_folder = "C:\\Users\\Brian\\Documents\\Dropbox\\University\\4B\\SYDE 522 Project\\"
+    # main_folder = "C:\\Users\\Brian\\Documents\\Dropbox\\University\\4B\\SYDE 522 Project\\"
     filename = "tourney_slots.csv"
     headings = ['season', 'slot', 'strongseed', 'weakseed']
     data = readfile(main_folder,filename,headings)
@@ -73,7 +77,7 @@ def single_tourney_teams(season, tourney_seeds): #teams from tournament of inter
      teams = tourney_seeds.ix[tourney_seeds['season'] == season].ix[:,'team']
      return teams
 
-def construct_round():
+def construct_round(tourney_slots):
     #select round t
     t=1
     tourney_slots_sA = tourney_slots.ix[tourney_slots['season'] == 'A']
@@ -101,7 +105,7 @@ if __name__ == "__main__":
     tourney_seeds = get_tourney_seeds()
     tourney_slots = get_tourney_slots()
     
-    [R1_bracket, tourney_R1_games] = construct_round()
+    [R1_bracket, tourney_R1_games] = construct_round(tourney_slots)
     
     prob_A = []
     for game in range(0,len(tourney_R1_games)):
