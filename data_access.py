@@ -55,6 +55,10 @@ def get_avgpoints_year(year):
     qstr = 'SELECT * FROM avgpoints where year = :year;'
     apts = db.query('mm_main', qstr, inputs, as_dict=True)
 
+def get_matchups(year):
+    inputs = {'year': year}
+    qstr = ''
+
     return apts
 
 x = os.path.join(os.getcwd(), 'data_files/mm.db')
