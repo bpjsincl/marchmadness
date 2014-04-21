@@ -24,8 +24,8 @@ def tourney_seeds_dict(tourney_seeds, curr_season): #create a mapping of teams t
     Tseeds_map = Tseeds_dict['team']
     return Tseeds_map
 
-def season_stats(season, team):#calculate current season's stats
-    reg_season_results = gd.get_reg_season_results()
+def season_stats(season, team, main_folder):#calculate current season's stats
+    reg_season_results = gd.get_reg_season_results(main_folder)
 
     reg_season_results_s = reg_season_results.ix[reg_season_results['season'] == season]
     #team_games = reg_season_results_sA.ix[(reg_season_results_sA['wteam'] == team) | (reg_season_results_sA['lteam'] == team)] #all games by specific team
@@ -49,10 +49,10 @@ def last_tourney_stats(last_season):
     
     return last_tourney_stats
 
-def teams_season_stats(teams_in_tourney, curr_season):
+def teams_season_stats(teams_in_tourney, curr_season, main_folder):
     teams_stats_dict = dict()
     for team in teams_in_tourney:
-        curr_season_stats = season_stats(curr_season,team) #regular season stats (avg_score, win/loss %)
+        curr_season_stats = season_stats(curr_season,team, main_folder) #regular season stats (avg_score, win/loss %)
         last_tourney_stats = [] #create vector of the last year's stats if team was in tournament otherwise populate with 0's
         teams_stats_dict.update({team: curr_season_stats})
         
@@ -126,20 +126,21 @@ def create_features(all_game_outcomes, tourney_stats_dict, Tseeds_map):
     return input_vec
 
 if __name__ == '__main__':
-    all_seasons = list(gd.get_seasons()['season'])
+    main_folder = "..//data_files//"
+    all_seasons = list(gd.get_seasons(main_folder)['season'])
     last_season = all_seasons[0]
     curr_season = all_seasons[0]
     
-    tourney_seeds = gd.get_tourney_seeds()
-    tourney_slots = gd.get_tourney_slots()
-    tourney_results = gd.get_tourney_results()
+    tourney_seeds = gd.get_tourney_seeds(main_folder)
+    tourney_slots = gd.get_tourney_slots(main_folder)
+    tourney_results = gd.get_tourney_results(main_folder)
     
     tourney_results_s = tourney_results.ix[tourney_results['season'] == curr_season]
     T_matchup_results = tourney_results_s[['wteam', 'lteam']]
     tourney_slots_s = tourney_slots.ix[tourney_slots['season'] == curr_season]
     
     teams_in_tourney = gd.single_tourney_teams(curr_season,tourney_seeds)
-    tourney_stats_dict = teams_season_stats(teams_in_tourney, curr_season) #(reg season avg_score, reg season win/loss %)
+    tourney_stats_dict = teams_season_stats(teams_in_tourney, curr_season, main_folder) #(reg season avg_score, reg season win/loss %)
     Tseeds_map = tourney_seeds_dict(tourney_seeds, curr_season) #get mapping of teams to seed in tournament
 
     last_winners_dict, tourney_match_seeds, all_game_outcomes = construct_tourney_winners(tourney_slots_s, T_matchup_results, Tseeds_map)
