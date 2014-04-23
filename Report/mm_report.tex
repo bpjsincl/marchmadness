@@ -1,4 +1,3 @@
-
 %% bare_conf.tex
 %% V1.3
 %% 2007/01/11
@@ -304,7 +303,7 @@
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
-
+\usepackage{longtable}
 \begin{document}
 %
 % paper title
@@ -433,9 +432,51 @@ Nest, statistics were integrated into to this dataset, representing the features
 
 To select the best features, the researchers conducted step-wise regression to construct a simpler model. The final set of features used is found in Table~\ref{tab:features}. Features with the highest predictive power are: (LIST FEATUERES POTENTIALLY).
 
+Talk about different testing methods here!!!!
 
 \section{Random Forest}
-The first method used is Random Forests...
+The first method used is Random Forests. Random Forests combine the benefits of using simple decision trees and the complexity of esemble learning methods. They are a collection of decision tress that contribute to the overall class vote. The class with the highest number of votes results in the class assignment. This is beneficical because it allows the researchers to extract the probabilities of each class assignment. 
+
+The Random Forest is constructed using python's Sklearn package. The classification will undergo the three testing methods as described previously. In the cross-validation testing the Random Forest parameters will be tweaked and used in all subsequent tests. Three parameters are chosen to alter the performance of the Random Forest: number of estimators (the number of trees in the forest), the number of jobs to run in parallel for both fit and predict, and the maximum depth of the tree. The cross-validation performance and the corresponding parameter values can be found in Table ~\ref{tab:RF_CV}.
+
+\begin{table}[H]
+	\centering
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \textbf{Accuracy} & \textbf{n\_jobs} & \textbf{n\_estimators} & \textbf{max\_depth} \\ \hline
+    56\%     & 1       & 10            & NONE       \\ \hline
+    58\%     & 1       & 5             & 10         \\ \hline
+    59\%     & 1       & 15            & 5          \\ \hline
+    60\%     & 2       & 15            & 5          \\ \hline
+    59\%     & 2       & 15            & 15         \\ \hline
+    59\%     & 2       & 15            & NONE       \\ \hline
+    \end{tabular}
+    \caption {Random Forest Cross-Validation}
+    \label{tab:RF_CV}
+\end{table}
+
+The cross-validation test was carried out by setting 30\% of the training data to act as the testing data. The percentage was then calculated based on the number of correctly predicted matchups (predicting correctly when team A or team B wins) divided by the total number of matchups (including false negatives and false positive errors).  Based on the cross-validation, the Random Forest performs with approximately 60\% accuracy with parameters $n\_jobs$ = 2, $n\_estimators$ = 15, and $max\_depth$ = 5. The Random Forest classifier uses these values in all subsequent simulations.
+
+Moving forward, the Log Loss value was extracted and found to be <INSER LOG LOSS>.
+
+The overall tournament accuracy for the 2013 season was run 5 different times to account for the randomness in the model. The results can be found in Table~\ref{tab:thetable}.
+
+The distribution of the simulations is approximately 54\%. The accuracy is lower than the training validation but not by a large amount. This results from the large number of upsets in the 2013 tournament compared to previous years. 
+ 
+\begin{table}[H]
+	\centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    ~   \textbf{Simulation Number}  & \textbf{Accuracy} \\ \hline
+    Smulation 1 & 54\%  \\ \hline
+    Smulation 2 & 58\% \\ \hline
+    Smulation 3 & 52\% \\ \hline
+    Smulation 4 & 51\% \\ \hline
+    Smulation 5 & 57\%\\ \hline
+    \end{tabular}
+    \caption {Tournament Prediction Simulations}
+    \label{tab:thetable}
+\end{table}
 
 %\begin{figure}[htb]
 %\centering
@@ -444,10 +485,10 @@ The first method used is Random Forests...
 %\label{fig_ANN}
 %\end{figure}
 
-This is a sample equation:
-\begin{equation}
-f(x) = \frac{\sin(x^2)-1}{\sum\limits_{i=1}^{n}i^3-i}+\log_2 x
-\end{equation}
+%This is a sample equation:
+%\begin{equation}
+%f(x) = \frac{\sin(x^2)-1}{\sum\limits_{i=1}^{n}i^3-i}+\log_2 x
+%\end{equation}
 
 
 \section{Neural Network}
