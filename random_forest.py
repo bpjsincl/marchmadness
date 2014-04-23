@@ -69,6 +69,22 @@ def cross_validation(training_data):
     cross_tab = pd.crosstab(test['value'], preds, rownames=['actual'], colnames=['preds'])
     return cross_tab
 
+def tournament_accuracy():
+    num_right = 0
+    total = 0
+    tourney_slots_s['actual'] =0
+    for num in range(0,len(tourney_slots_s)):
+        matchup = tourney_slots_s.iloc[num]
+        
+        actual_result = df_results[df_results[0]==matchup['slot']]
+        matchup.loc['actual'] = actual_result.iloc[0][1]
+        tourney_slots_s.iloc[num] = matchup
+        if actual_result.iloc[0][1] == matchup['winner']:
+            num_right += 1
+        total += 1
+    
+    return num_right/total
+
 if __name__ == '__main__':
 	# INITIALIZE ALL DATA FOR RANDOM FOREST
 
@@ -130,8 +146,79 @@ if __name__ == '__main__':
 	feature_names = list(features_total.columns.values)
 	RF_data = features_total
 
-	# ACTUALLY RUN BRACKET
 	
+	actual_results = [('W16', 'W16b'),
+	 ('Y11', 'Y11b'),
+	 ('Y16', 'Y16b'),
+	 ('Z13', 'Z13b'),
+	 ('R1W1', 'W01'),
+	 ('R1W2', 'W02'),
+	 ('R1W3', 'W03'),
+	 ('R1W4', 'W04'),
+	 ('R1W5', 'W12'),
+	 ('R1W6', 'W06'),
+	 ('R1W7', 'W07'),
+	 ('R1W8', 'W09'),
+	 ('R1X1', 'X01'),
+	 ('R1X2', 'X15'),
+	 ('R1X3', 'X03'),
+	 ('R1X4', 'X04'),
+	 ('R1X5', 'X05'),
+	 ('R1X6', 'X11'),
+	 ('R1X7', 'X07'),
+	 ('R1X8', 'X08'),
+	 ('R1Y1', 'Y01'),
+	 ('R1Y2', 'Y02'),
+	 ('R1Y3', 'Y03'),
+	 ('R1Y4', 'Y04'),
+	 ('R1Y5', 'Y12'),
+	 ('R1Y6', 'Y06'),
+	 ('R1Y7', 'Y07'),
+	 ('R1Y8', 'Y08'),
+	 ('R1Z1', 'Z01'),
+	 ('R1Z2', 'Z02'),
+	 ('R1Z3', 'Z14'),
+	 ('R1Z4', 'Z13'),
+	 ('R1Z5', 'Z12'),
+	 ('R1Z6', 'Z06'),
+	 ('R1Z7', 'Z10'),
+	 ('R1Z8', 'Z09'),
+	 ('R2W1', 'W01'),
+	 ('R2W2', 'W02'),
+	 ('R2W3', 'W03'),
+	 ('R2W4', 'W04'),
+	 ('R2X1', 'X01'),
+	 ('R2X2', 'X15'),
+	 ('R2X3', 'X03'),
+	 ('R2X4', 'X04'),
+	 ('R2Y1', 'Y01'),
+	 ('R2Y2', 'Y02'),
+	 ('R2Y3', 'Y03'),
+	 ('R2Y4', 'Y12'),
+	 ('R2Z1', 'Z09'),
+	 ('R2Z2', 'Z02'),
+	 ('R2Z3', 'Z06'),
+	 ('R2Z4', 'Z13'),
+	 ('R3W1', 'W04'),
+	 ('R3W2', 'W03'),
+	 ('R3X1', 'X04'),
+	 ('R3X2', 'X15'),
+	 ('R3Y1', 'Y01'),
+	 ('R3Y2', 'Y02'),
+	 ('R3Z1', 'Z09'),
+	 ('R3Z2', 'Z02'),
+	 ('R4W1', 'W04'),
+	 ('R4X1', 'X04'),
+	 ('R4Y1', 'Y01'),
+	 ('R4Z1', 'Z09'),
+	 ('R5WX', 'X04'),
+	 ('R5YZ', 'Y01'),
+	 ('R6CH', 'Y01')]
+	df_results = pd.DataFrame(actual_results)
+	
+
+	# ACTUALLY RUN BRACKET
+
 	# run_bracket(tourney_slots_s, RF_data, year)
-	# tourney_slots_s
-	cross_validation(RF_data)
+	tournament_accuracy()
+	# cross_validation(RF_data)
