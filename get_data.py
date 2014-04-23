@@ -88,7 +88,7 @@ def simple_prob_func(high_rank, low_rank):
     return prob_A
 
 if __name__ == "__main__":
-    main_folder = "..//data_files//"
+    main_folder = "data_files//"
     teams = get_teams(main_folder)
     seasons = get_seasons(main_folder)
     reg_season_results = get_reg_season_results(main_folder)
