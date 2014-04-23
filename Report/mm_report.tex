@@ -289,12 +289,12 @@
 % not format its papers in such ways.
 
 
-
+\usepackage{float}
 
 
 % *** PDF, URL AND HYPERLINK PACKAGES ***
 %
-%\usepackage{url}
+\usepackage{url}
 % url.sty was written by Donald Arseneau. It provides better support for
 % handling and breaking URLs. url.sty is already installed on most LaTeX
 % systems. The latest version can be obtained at:
@@ -340,32 +340,6 @@ Email: dsneil@uwaterloo.ca}
 % the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
 % after \documentclass
 
-% for over three affiliations, or if they all won't fit within the width
-% of the page, use this alternative format:
-% 
-%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
-%Homer Simpson\IEEEauthorrefmark{2},
-%James Kirk\IEEEauthorrefmark{3}, 
-%Montgomery Scott\IEEEauthorrefmark{3} and
-%Eldon Tyrell\IEEEauthorrefmark{4}}
-%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
-%Georgia Institute of Technology,
-%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
-%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
-%Email: homer@thesimpsons.com}
-%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
-%Telephone: (800) 555--1212, Fax: (888) 555--1212}
-%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
-
-
-
-
-% use for special paper notices
-%\IEEEspecialpapernotice{(Invited Paper)}
-
-
-
-
 % make the title area
 \maketitle
 
@@ -375,13 +349,15 @@ Email: dsneil@uwaterloo.ca}
 %change that second scentence wording
 
 Bracket and Game prediction is continually growing in popularity due to revenue production over various gambling mediums.
-(CHANGE: One subset of this industry is through the )March Madness sporting event held every year, with competing 'A' Division NCAA college basketball teams. 
-The researchers will attempt to use machine-learning techniques to predict the winners of this 64 team single knock-out tournament, and will do so through calculating the probability of that outcome occurring for each round of play.
-The previous seasons will assist in the process of training and testing and models will be benchmarked against specific seasons.
+March Madness is a sporting event held every year, with competing Division I NCAA college basketball teams, and attracts significant gambling and competition to predict winners.
+Outside of the typical gambling realm, Kaggle has held a competition this season, offering \$15,000 to the winner.
+The researchers did not participate, but are using this competition, its data and results, as a foundation for the analysis.
 Many tactics are currently being reasearched and employed, such as: ANNs, varying regression techniques, probabalistic optimization, SVM's, and genetic algorithms.
 However, due to high uncertainty in outcomes, none have been extremely accurate.
-The researchers will apply Artificial Neural Networks and Random Forests, and use regression models to potentially reduce the feature space.
-In order determine if the technique is successful, the researchers will use Logarithmic Loss and will assess the performance on the 2014 tournament.
+The researchers will apply Artificial Neural Networks and Random Forests, with data gathered from the Kaggle Competition and Ken Pomeroy.
+Using these techniques, the researchers will attempt to predict the winners of this tournament, constructing a traditional bracket and for each potential matchup of teams, the and will do so through calculating the probability of that outcome occurring for each round of play.
+The previous seasons will assist in the process of training and testing, and models will be benchmarked against specific seasons.
+Additionally, to determine technique's success, the researchers will use Logarithmic Loss and compare predictions against results from Kaggle.
 \end{abstract}
 
 
@@ -397,17 +373,23 @@ Hand calculated predictions used to be the norm, but more advanced MI techniques
 However, there is no greed upon or industry standardized method for predicting a bracket, or even the outcome of a basketball game. 
 Many tactics are used, such as: neural nets \cite{KarlLeswing}, varying regression and probabalistic optimization techniques \cite{adams-dahl-murray-2010a, DannyTarlow, BradyWest, BradleyCarlin, ProbModelsNCAA-1991, MoreProbModelsNCAA-1996}, support vector machines \cite{KennethDeakins}, and genetic algorithms \cite{ScottTurner}, but due to high uncertainty in outcomes, none have been extremely accurate, and continuous improvements are being made.
 
-Kaggle, a machine-learning competition repository, held a competition this year for predicting the outcome of each possible matchup in the March Madness tournament.
+Kaggle, a machine-learning competition repository, held a competition this year for predicting the outcome of each possible matchup in the March Madness tournament (\url{KAAGLE}).
 The researchers did not compete, but will use the data provided (along with that from external sources) and results to analyse their performance.
-Kaggle provides some data, which includes player, team, season, and tournament data from the past 18 NCAA seasons.
-Other data sources will be incorporated in the models <to improve stuff, get more information about teams, etc.>
+Kaggle provides some data, which includes player, team, season, and tournament results from the past 18 NCAA seasons, but is not sufficient for generating good predictions.
+Therefore, other data sources will be incorporated to hopefully create more powerfull models. The features used were obtained from Ken Pomeroy, NCAA basketball statstician.
 The researchers will use Random Forests and Artificial Neural Networks, to predict winners and associated probability of occurence for each round of play, for the 64 teams.
 <Previous seasons will assist in the process of training and testing, and results benchmarked against specific seasons and Kaggle competition results.>
 
 
-\section{Data Gathering and Feature Selection}
+\section{Data Abstraction, Features, and Structure}
 The data used for creating predictions was gathered from multiple sources. Firstly, the Kaggle competition data served as a base of information, giving seasons, teams, game results, and tournament matchups.
-Nest, statistics were integrated into to this dataset, representing the features for each team. These were obtained from renowned NCAA statstician, Ken Pomeroy (also known as ``kenpom''). KenPom has extensive data available on every NCAA Division I basketball team, which serves as the basis for learning in this project. The researchers were only able to obtain team-wide data, but in the future could potentially utilize KenPom's player-specific data as well \cite{KenPom}. A subset of the statistics used is seen below. A total of 30 statistics from KenPom are used as features for each team.
+Next, statistics were integrated into to this dataset, representing the features for each team. 
+These were obtained from renowned NCAA statstician, Ken Pomeroy (also known as ``kenpom'').
+KenPom has extensive data available on every NCAA Division I basketball team, which serves as the basis for learning in this project.
+The researchers were only able to obtain team-wide data, but in the future could potentially utilize KenPom's player-specific data as well. 
+A subset of the statistics used is seen below. 
+A total of 30 statistics from KenPom are used to represent each team, whose meaning can be located within KenPom's blog \cite{KenPom}. 
+In both approaches it is not necessary that the researchers know or understand what the values are, just that they accurately represent a team according to KenPom.
 
 \begin{itemize}
   \item Tempo
@@ -431,8 +413,26 @@ Nest, statistics were integrated into to this dataset, representing the features
 %	\caption{Integration tests for Relay Framework}
 %\end{longtable}
 
-To select the best features, the researchers conducted step-wise regression to construct a simpler model. The final set of features used is found in Table~\ref{tab:features}. Features with the highest predictive power are: (LIST FEATUERES POTENTIALLY).
+The researchers discussed running a feature reduction process, such as Principle Component Analysis (PCA), but ultimately decided it is not currently needed. The systems, ANN and RF, ran well with the current set of features and dimensionality reduction was not needed. However, if more features are added, as proposed later in the report, it is advised that some feature analysis is performed. The researchers suggest using: PCA, step-wise regression, or python libraries, such as scikit learn, to select the features with highest predictive power.
 
+\subsection{Prediction Format}
+There are two formats for the predictions generated by the models: full tournament and bracket. Firstly, the full tournament predictions are for every potential matchup in that tournament. There are a potential 2278 combinations of teams in the March Madness tournament and generating a prediction for each is necessary for evaluating against the actual tournament results. This is also in accordance with the submission format required for the Kaggle competition. An example of this is seen in Table~\ref{tab:kaggle}. The structure of the game is: season, winning team id, losing team id. Secondly, the researchers will generate a standard bracket for the tournament. This will utilize the models to select a winner for each round of the tournament <AND SOMETHING ELSE>.
+
+\begin{table}[H]
+\begin{centering}
+    \begin{tabular}{|l|l|}
+    \hline
+    Game        & Prediction \\ \hline
+    R\_507\_509 & 0.63       \\ 
+    R\_507\_511 & 0.75       \\ 
+    R\_507\_512 & 0.55       \\ 
+    R\_507\_521 & 0.80       \\ 
+    R\_507\_536 & 0.91       \\ \hline
+    \end{tabular}
+    \label{tab:kaggle}
+    \caption{Snippet of Sample Submission for Kaggle}
+    \end{centering}
+\end{table}
 
 \section{Random Forest}
 The first method used is Random Forests...
@@ -455,7 +455,20 @@ f(x) = \frac{\sin(x^2)-1}{\sum\limits_{i=1}^{n}i^3-i}+\log_2 x
 \section{Results}
 
 \section{Future Work and Conclusions}
-The conclusion goes here. The conclusion goes here. The conclusion goes here. The conclusion goes here. The conclusion goes here. The conclusion goes here. The conclusion goes here. The conclusion goes here. The conclusion goes here. 
+%incorportating player statistics
+%using some type of weighting function or window to calculate the aggregate metrics of each team
+%incorporate ``meta-strats'' (i.e. manually changing things within the bracket). Didn't do this because it is not MI, but if we had a specific strategy in mind we could alter the results of the MI process (e.g. make all florida state games 1.0 for tehm if we think they are going to win because we get the most benefit from this). This leads to more gambling
+%
+
+The researchers believe that some improvements could be made to the model to better capture a teams current performance, and hopefully generate more accurate predictions. However, NCAA basketball is known for its high uncertainty in outcomes (i.e. large number of ``upsets''), so creating a more comprehensive model may not lead to better predictions. Therefore, further training and testing would need to be performed to validate these hypotheses.
+
+Currently the features used are team-wide and do not include any player specific information. This could be important in prediction as ...
+
+Additionally, features are calculated over the entire season and therefore are not necessarily indicative of a team during the season. The reseachers firsty propose the use of a weighting function. This would gradually decrease the strength of statistics from the beginning of the season (and prior season for early predictions) as it progresses, attempting to better capture the current performance of each team. Secondly, a ``window'' could be used to tabulate the aggregate metrics, meaning that the last $n$ games would be valid for the current prediction. This again attempts to more accurately capture current team performance. The season-wide statistics mask performance nuances and using either of these methods could better represent the growth of a team over the season and how it contributes to their results over time.
+
+Next, while this does not necesarilly pertain to machine learning, <``meta-strategies''> may boost log-loss performance. An example of such a strategy is, if a weaker-seeded team is considered in later rounds, this means they beat stronger-seeds and therefore are a higher performing team than initially determined. This is useful information to for making predictions and could be incorporated as a feature in the model, measuring ``perceived strength'', ``updated seed'', or some other power rating. This also does not solely apply to weak-seeds. While this power rating would have a larger impact on weaker teams, it would affect any team making it further in the tournament, rewarding them for their performance. <maybe another sentence>
+
+Lastly, the two prediction methods above (full tournament and bracket) could be used in tandem to generate a ``custom'' full tournament prediction. The bracket outlines the researches selected predictions, <BASED ON>, and the full tournament can be modified to reflect this. Each win in the bracket essentially represents a 1.0 likelihood prediction for the winning team in that game. To acheive maximum benefit for this potential win, the full tournament should reflect this. While this approach can lead to greater losses, <it reflects the best estimates of the model, something about our best guesses based on our models>.
 
 % use section* for acknowledgement
 \section*{Acknowledgment}
@@ -487,16 +500,8 @@ The authors would like to thank
 \bibliography{references}
 %\begin{thebibliography}{1}
 
-%\bibitem{IEEEhowto:kopka}
-%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
- % 0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
 %\end{thebibliography}
 
-
-
-
-% that's all folks
 \end{document}
 
 
