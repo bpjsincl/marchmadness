@@ -70,7 +70,7 @@ def get_nn_input(years):
 		matchup_all = pd.concat([matchup_all, features_total], axis=0)
 	return matchup_all
 
-def build_nn(NN_input):
+def build_nn(NN_input, numNeurons):
 	DS = ClassificationDataSet(len(NN_input[1][:len(NN_input[1])-1]), nb_classes=2, class_labels=['Loss','Win'])
 
 	for i,matchup in enumerate(NN_input):
@@ -84,8 +84,8 @@ def build_nn(NN_input):
 	print "First sample (input, target, class):"
 	print trndata['input'][0], trndata['target'][0], trndata['class'][0]
 
-	# neural net with 2 hidden layers and 3 nodes -- 3 nodes chosen largely due to computation speed
-	net = buildNetwork( trndata.indim, 3, 3, trndata.outdim, hiddenclass=TanhLayer, bias=True)
+	# neural net with 2 hidden layers and numNeurons for each
+	net = buildNetwork( trndata.indim, numNeurons, numNeurons, trndata.outdim, hiddenclass=TanhLayer, bias=True)
 	net.sorted = False
 	net.sortModules()
 
