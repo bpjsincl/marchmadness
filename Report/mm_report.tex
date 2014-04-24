@@ -361,7 +361,10 @@ Additionally, to determine technique's success, the researchers will use Logarit
 
 
 \section{Introduction}
-March Madness is a 64 team, single-knockout tournament <finish this scentence explaining MM>.
+March Madness is comprised of the top 64 teams in the United States.
+It is structured in a classical tournament bracket format, beginning with 32 games (64 teams) and ending with one final Championship game with all single-round knockouts.
+The losing team from each game is eliminated from the tournament at each round, which cuts the number of games at each successive round in half.
+This provides a tournament layout consisting of 6 rounds.
 Betting on this tournament is extremely popular and a total of \$12 billion was spent on gambling related bets in 2012 \cite{BradTuttle-2012}. 
 The most popular bet made comes in the form of the March Madness bracket. So popular that more Americans filled out a bracket in 2012 than voted in the Presidential Election \cite{DavidHolmes-2013}. 
 Predicting this bracket includes choosing the winner of each game in the tournament for each of the six rounds. 
@@ -372,13 +375,12 @@ Hand calculated predictions used to be the norm, but more advanced MI techniques
 However, there is no greed upon or industry standardized method for predicting a bracket, or even the outcome of a basketball game. 
 Many tactics are used, such as: neural nets \cite{KarlLeswing}, varying regression and probabalistic optimization techniques \cite{adams-dahl-murray-2010a, DannyTarlow, BradyWest, BradleyCarlin, ProbModelsNCAA-1991, MoreProbModelsNCAA-1996}, support vector machines \cite{KennethDeakins}, and genetic algorithms \cite{ScottTurner}, but due to high uncertainty in outcomes, none have been extremely accurate, and continuous improvements are being made.
 
-Kaggle, a machine-learning competition repository, held a competition this year for predicting the outcome of each possible matchup in the March Madness tournament (\url{KAAGLE}).
+Kaggle, a machine-learning competition repository, held a competition this year for predicting the outcome of each possible match-up in the March Madness tournament (\url{https://www.kaggle.com/c/march-machine-learning-mania}).
 The researchers did not compete, but will use the data provided (along with that from external sources) and results to analyse their performance.
 Kaggle provides some data, which includes player, team, season, and tournament results from the past 18 NCAA seasons, but is not sufficient for generating good predictions.
-Therefore, other data sources will be incorporated to hopefully create more powerfull models. The features used were obtained from Ken Pomeroy, NCAA basketball statstician.
-The researchers will use Random Forests and Artificial Neural Networks, to predict winners and associated probability of occurence for each round of play, for the 64 teams.
-<Previous seasons will assist in the process of training and testing, and results benchmarked against specific seasons and Kaggle competition results.>
-
+Therefore, other data sources will be incorporated to hopefully create more powerful models. The features used were obtained from Ken Pomeroy {\url{http://kenpom.com/}), NCAA basketball statistician.
+The researchers will use Random Forests and Artificial Neural Networks, to predict winners and associated probability of occurrence for each round of play, for the 64 teams.
+Previous seasons will assist in the process of training and testing, and results benchmarked against specific tournament results, and Kaggle competition results.
 
 \section{Data Abstraction, Features, and Structure}
 The data used for creating predictions was gathered from multiple sources. Firstly, the Kaggle competition data served as a base of information, giving seasons, teams, game results, and tournament matchups.
@@ -412,11 +414,17 @@ In both approaches it is not necessary that the researchers know or understand w
 %	\caption{Integration tests for Relay Framework}
 %\end{longtable}
 
-The researchers discussed running a feature reduction process, such as Principle Component Analysis (PCA), but ultimately decided it is not currently needed. The systems, ANN and RF, ran well with the current set of features and dimensionality reduction was not needed. However, if more features are added, as proposed later in the report, it is advised that some feature analysis is performed. The researchers suggest using: PCA, step-wise regression, or python libraries, such as scikit learn, to select the features with highest predictive power.
+The researchers discussed running a feature reduction process, such as Principle Component Analysis (PCA), but ultimately decided it is not currently needed. 
+The systems, ANN and RF, ran well with the current set of features and dimensionality reduction was not needed, as there are only a total of 60 features.
+However, feature reduction would have provided a slight increase in speed, but the research done on the tools used for learning in $sciikit-learn$ and $pybrain$ suggest that it would not be noticeable.
+Additionally, if more features are added, as proposed later in the report, it is advised that some feature analysis is performed.
+The researchers suggest using: PCA, step-wise regression, in python libraries, such as scikit learn, to select the features with highest predictive power.
 
 \subsection{Prediction Format}
-There are two formats for the predictions generated by the models: full tournament and bracket. Firstly, the full tournament predictions are for every potential matchup in that tournament. There are a potential 2278 combinations of teams in the March Madness tournament and generating a prediction for each is necessary for evaluating against the actual tournament results. This is also in accordance with the submission format required for the Kaggle competition. An example of this is seen in Table~\ref{tab:kaggle}. The structure of the game is: season, winning team id, losing team id. Secondly, the researchers will generate a standard bracket for the tournament. This will utilize the models to select a winner for each round of the tournament. 
-Obviously, if the predictor makes an incorrect prediction early on in the tournament, then subsequent predictions will also be incorrect -- propogating through the tournament. <AND SOMETHING ELSE>.
+There are two formats for the predictions generated by the models: full tournament and bracket. Firstly, the full tournament predictions are for every potential match-up in that tournament. 
+There are a potential 2278 combinations of teams in the March Madness tournament and generating a prediction for each is necessary for evaluating against the actual tournament results. This is also in accordance with the submission format required for the Kaggle competition.
+An example of this is seen in Table~\ref{tab:kaggle}. The structure of the game is: season, winning team id, losing team id. Secondly, the researchers will generate a standard bracket for the tournament. This will utilize the models to select a winner for each round of the tournament. 
+Obviously, if the predictor makes an incorrect prediction early on in the tournament, then subsequent predictions will also be incorrect -- propagating through the tournament. <AND SOMETHING ELSE>.  %scott I'll leave this for you. not sure what you want here
 
 \begin{table}[H]
 \begin{centering}
@@ -435,7 +443,14 @@ Obviously, if the predictor makes an incorrect prediction early on in the tourna
 \end{table}
 
 \subsection{Testing Methodology}
-Three different tests were conducted to evaluate the performance of the learning techniques. Firstly, <IDK>. Next, a traditional bracket is constructed in the same form as that in Appendix~\ref{ap:bracket}. The bracket's performance is then evaluated against the actual tournanment results and percent correct is calculated (i.e. how many games were correctly predicted out of all games played). Lastly, a full tournament is constructed, explained in Prediction Format above, and log loss  of predictions is calculated. Only games that actually occured are included in the calculation and this metric allows for comparison against the Kaggle results. Note that a direct comparison cannot be made as the data used only extends to the 2012-2013 season.
+Three different tests were conducted to evaluate the performance of the learning techniques.
+Initially, it is first important to evaluate the performance of the classifier based off of training error and testing error.
+Above, the absolute error that is returned, the researchers will cross-validate using Mean-Squared Error (MSE).
+This is used to check for the presence of over-fitting (or over-training) data in the solution.
+Next, a traditional bracket is constructed in the same form as that in Appendix~\ref{ap:bracket}. The bracket's performance is then evaluated against the actual tournament results and percent correct is calculated (i.e. how many games were correctly predicted out of all games played). 
+Lastly, a full tournament is constructed, explained in Prediction Format above, and log loss of predictions is calculated using all possible match-ups. 
+Only games that actually occurred are included in the calculation and this metric allows for comparison against the Kaggle results. 
+Note that a direct comparison cannot be made as the data used only extends to the 2012-2013 season.
 
 \section{Random Forest}
 The first method used is Random Forests. Random Forests combine the benefits of using simple decision trees and the complexity of esemble learning methods which consistently outperforms single decision trees \cite{THOMASG.DIETTERICH:1999}. They are a collection of decision tress that contribute to an overall class vote. The single decision trees will in the ensemble process will not undergo any pruning as it could have negative consequences \cite{THOMASG.DIETTERICH:1999}. The class assignment is determined by:
