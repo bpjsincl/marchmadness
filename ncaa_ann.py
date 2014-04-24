@@ -77,8 +77,8 @@ def build_nn(NN_input, numNeurons):
 	for i,matchup in enumerate(NN_input):
 		DS.appendLinked(matchup[:len(matchup)-1], matchup[len(matchup)-1])
 	tstdata, trndata = DS.splitWithProportion(0.3)
-	trndata._convertToOneOfMany( )
-	tstdata._convertToOneOfMany( )
+	trndata._convertToOneOfMany(bounds=[0, 1])
+	tstdata._convertToOneOfMany(bounds=[0, 1])
 
 	print "Number of training patterns: ", len(trndata)
 	print "Input and output dimensions: ", trndata.indim, trndata.outdim
@@ -86,7 +86,7 @@ def build_nn(NN_input, numNeurons):
 	print trndata['input'][0], trndata['target'][0], trndata['class'][0]
 
 	# neural net with 2 hidden layers and numNeurons for each
-	net = buildNetwork( trndata.indim, numNeurons, numNeurons, numNeurons, trndata.outdim, hiddenclass=TanhLayer, bias=True)
+	net = buildNetwork( trndata.indim, numNeurons, numNeurons, numNeurons, trndata.outdim, hiddenclass=TanhLayer, outclass=SoftmaxLayer, bias=True)
 	net.sorted = False
 	net.sortModules()
 
