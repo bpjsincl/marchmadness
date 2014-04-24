@@ -534,7 +534,7 @@ The distribution of the simulations is approximately 54\%. The accuracy is lower
 
 \section{Neural Network}
 The second method uses a multi-layer, feedforward, backpropagation artificial neural network to simulate and predict the results of the NCAA basketball tournament.
-In the sub-field of data classification, neural-network methods have been found to be useful alternatives to statistical techniques such as those which involve regression analysis or probability density estimation (e.g., Holmstrom et al., 1997).
+In the sub-field of data classification, neural-network methods have been found to be useful alternatives to statistical techniques such as those which involve regression analysis or probability density estimation (e.g., \cite{}).
 Individual nodes in a neural network emulate biological neurons by taking input data and performing simple operations on the data, selectively passing the results on to other neurons in other (hidden) layers.
 The neural network used is composed of 1) an input layer of nodes, 2) one or more intermediate (hidden) layers of nodes, and 3) an output layer of nodes (in this case one)
 For clarity, it is often best to describe a particular network by its number of layers, and the number of nodes in each layer (e.g., a "4-3-2" network has an input layer with 4 nodes, a single hidden layer with 3 nodes, and an output layer with 2 nodes).
@@ -544,14 +544,14 @@ Where $H$ is the number of neurons in a single hidden layer.
 
 Choosing the proper type of neural network for a certain problem can be a critical issue.
 Varying the number of neurons, and the number of hidden layers allows adjustment in the operation and performance.
-Additional definitions of a good model include: activation functions and the training function[B1]. % not sure what this scentence if referring to
-The adjustment of these parameters varies with every application. % does this go with above
+Additional definitions of a good model include: activation functions and the training function[B1]. 
+The adjustment of these parameters varies with every application of a neural network.
 The approach follows a number of different combinations of adjusting these parameters to get the best result.
 Caution must be used in manipulating characteristics as too many neurons, with too many hidden layers may lead to over-fitting the data -- which will cause poor performance when testing.
 
 The researchers explore the implementation of the described neural network using the $PyBrain$ library for Python \cite{PyBrain}.
 The $PyBrain$ library offers a robust, and relatively straight-forward network construction, but is known for being comparatively slow.
-The network is built using $buildNewtork$, setting the hidden classes as $TahnLayers$. % <and output class as $SoftMax$.
+The network is built using $buildNewtork$, setting the hidden classes as $TahnLayers$ and output class as a $SoftMaxLayer$.
 
 The final component of the neural network used is a bias for the system.
 A bias is commonly visualized as simply values associated with each node in the hidden and output layers of a network, but in practice are treated in exactly the same manner as other weights, with all biases simply being weights associated with vectors that lead from a single node whose location is outside of the main network and whose activation is always 1.
@@ -566,7 +566,9 @@ Four network structure variables are adjusted for assessing the performance of t
 
 After the network is constructed with the desired characteristics, the data is split for later cross-validation, and trainer set up. 
 $BackPropTrainer$ is used with its generic construction except for setting the $weightdecay$ parameter to 0.01.
-The dataset contains samples from prior seasons <and having $weightdecay$ of non-zero reduces their impact on learned weights.> % don't like this wording
+As mentioned, the training data contains all features from season 2010 to 2013.
+In introducing a $weightdecay$ of non-zero for features from earlier seasons, the network reduces their impact. %how about his wording?
+The essential idea of backpropagation is to combine a non-linear multi-layer perceptron-like system capable of making decisions with the objective error function of the Delta Rule \cite{McClelland-1988}.
 The network is trained with the desired number of epochs and iterations, and performance statistics collected.
 For each time all training data is fed through the network, this is one Epoch.
 The $pybrain$ documentation suggests running a number of training iterations for a defined number of epochs to build a good model for the network.
