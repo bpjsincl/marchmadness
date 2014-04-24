@@ -434,7 +434,6 @@ Obviously, if the predictor makes an incorrect prediction early on in the tourna
     \end{centering}
 \end{table}
 
-Talk about different testing methods here!!!!
 \subsection{Testing Methodology}
 Three different tests were conducted to evaluate the performance of the learning techniques. Firstly, <IDK>. Next, a traditional bracket is constructed in the same form as that in Appendix~\ref{ap:bracket}. The bracket's performance is then evaluated against the actual tournanment results and percent correct is calculated (i.e. how many games were correctly predicted out of all games played). Lastly, a full tournament is constructed, explained in Prediction Format above, and log loss  of predictions is calculated. Only games that actually occured are included in the calculation and this metric allows for comparison against the Kaggle results. Note that a direct comparison cannot be made as the data used only extends to the 2012-2013 season.
 
@@ -536,18 +535,18 @@ The adjustment of these parameters varies with every application.
 The approach follows a number of different combinations of adjusting these parameters to get the best result.
 However, too many neurons with too many hidden layers may lead to over-fitting the data -- which will cause poor performance when testing.
 
-The backpropagation algorithm employs the Delta Rule, calculating error at output units.
-The effects of error in the output node(s) are propagated backward through the network after each training case.
-The essential idea of backpropagation is to combine a non-linear multi-layer perceptron-like system capable of making decisions with the objective error function of the Delta Rule (McClelland and ;Rumelhart, 1988).
+%The backpropagation algorithm employs the Delta Rule, calculating error at output units.
+%The effects of error in the output node(s) are propagated backward through the network after each training case.
+%The essential idea of backpropagation is to combine a non-linear multi-layer perceptron-like system capable of making decisions with the objective error function of the Delta Rule (McClelland and ;Rumelhart, 1988).
 
-In the employment of the backpropagation algorithm, each iteration of training involves the following steps: 
-\begin{enumerate}
-\item A particular case of training data is fed through the network in a forward direction, producing results at the output layer
-\item Error is calculated at the output nodes based on known target information, and the necessary changes to the weights that lead into the output layer are determined based upon this error calculation
-\item  The changes to the weights that lead to the preceding network layers are determined as a function of the properties of the neurons to which they directly connect (weight changes are calculated, layer by layer, as a function of the errors determined for all subsequent layers, working backward toward the input layer) until all necessary weight changes are calculated for the entire network. 
-\end{enumerate}
+%In the employment of the backpropagation algorithm, each iteration of training involves the following steps: 
+%\begin{enumerate}
+%\item A particular case of training data is fed through the network in a forward direction, producing results at the output layer
+%\item Error is calculated at the output nodes based on known target information, and the necessary changes to the weights that lead into the output layer are determined based upon this error calculation
+%\item  The changes to the weights that lead to the preceding network layers are determined as a function of the properties of the neurons to which they directly connect (weight changes are calculated, layer by layer, as a function of the errors determined for all subsequent layers, working backward toward the input layer) until all necessary weight changes are calculated for the entire network. 
+%\end{enumerate}
 
-The calculated weight changes are then implemented throughout the network, the next iteration(epoch) begins, and the entire procedure is repeated using the next training pattern.
+%The calculated weight changes are then implemented throughout the network, the next iteration(epoch) begins, and the entire procedure is repeated using the next training pattern.
 
 The final component of the neural network used is a bias for the system.
 A bias is commonly visualized as simply values associated with each node in the hidden and output layers of a network, but in practice are treated in exactly the same manner as other weights, with all biases simply being weights associated with vectors that lead from a single node whose location is outside of the main network and whose activation is always 1.
