@@ -86,7 +86,7 @@ def build_nn(NN_input, numNeurons):
 	print trndata['input'][0], trndata['target'][0], trndata['class'][0]
 
 	# neural net with 2 hidden layers and numNeurons for each
-	net = buildNetwork( trndata.indim, numNeurons, trndata.outdim, hiddenclass=TanhLayer, bias=True)
+	net = buildNetwork( trndata.indim, numNeurons, numNeurons, numNeurons, trndata.outdim, hiddenclass=TanhLayer, bias=True)
 	net.sorted = False
 	net.sortModules()
 
