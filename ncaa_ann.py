@@ -138,12 +138,12 @@ def create_tournament(teams, kag_teams, kag_seeds, kag_results, year, season):
 	return tournament, teams, results
 
 def log_loss(results, probs):
-	res = results[results.res.notnull()]
-	results['p1'],results['p2'] = (0.2,0.3)
-	probs = results.ix[results.res.notnull(), ['p1','p2']].values.tolist()
-	ll = metrics.log_loss(res.res.tolist(), probs)
-
-	return ll
+    res = results[results.res.notnull()]
+    results['p1'],results['p2'] = np.array(probs)[:,0], np.array(probs)[:,1]
+    probs = results.ix[results.res.notnull(), ['p1','p2']].values.tolist()
+    ll = metrics.log_loss(res.res.tolist(), probs)
+    
+    return ll
 
 def run_nn(trainer, tstdata, trndata, numEpoch, numIter):
 	# this will run the neural using the backprop trainer on test and training data with using 3 epochs and 20 iterations
