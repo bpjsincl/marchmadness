@@ -435,6 +435,8 @@ Obviously, if the predictor makes an incorrect prediction early on in the tourna
 \end{table}
 
 Talk about different testing methods here!!!!
+\subsection{Testing Methodology}
+Three different tests were conducted to evaluate the performance of the learning techniques. Firstly, <IDK>. Next, a traditional bracket is constructed in the same form as that in Appendix~\ref{ap:bracket}. The bracket's performance is then evaluated against the actual tournanment results and percent correct is calculated (i.e. how many games were correctly predicted out of all games played). Lastly, a full tournament is constructed, explained in Prediction Format above, and log loss  of predictions is calculated. Only games that actually occured are included in the calculation and this metric allows for comparison against the Kaggle results. Note that a direct comparison cannot be made as the data used only extends to the 2012-2013 season.
 
 \section{Random Forest}
 The first method used is Random Forests. Random Forests combine the benefits of using simple decision trees and the complexity of esemble learning methods which consistently outperforms single decision trees \cite{THOMASG.DIETTERICH:1999}. They are a collection of decision tress that contribute to an overall class vote. The single decision trees will in the ensemble process will not undergo any pruning as it could have negative consequences \cite{THOMASG.DIETTERICH:1999}. The class assignment is determined by:
