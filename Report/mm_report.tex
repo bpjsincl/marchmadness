@@ -437,9 +437,20 @@ Obviously, if the predictor makes an incorrect prediction early on in the tourna
 Talk about different testing methods here!!!!
 
 \section{Random Forest}
-The first method used is Random Forests. Random Forests combine the benefits of using simple decision trees and the complexity of esemble learning methods. They are a collection of decision tress that contribute to the overall class vote. The class with the highest number of votes results in the class assignment. This is beneficical because it allows the researchers to extract the probabilities of each class assignment. 
+The first method used is Random Forests. Random Forests combine the benefits of using simple decision trees and the complexity of esemble learning methods which consistently outperforms single decision trees \cite{THOMASG.DIETTERICH:1999}. They are a collection of decision tress that contribute to an overall class vote. The single decision trees will in the ensemble process will not undergo any pruning as it could have negative consequences \cite{THOMASG.DIETTERICH:1999}. The class assignment is determined by:
+\begin{equation}
+class = argmax(p_1, p_2,...,p_i)
+\end{equation}
+These are otherwise known as probability estimation trees \cite{THOMASG.DIETTERICH:1999}. The ability to assign ranks to class assignments can be used to measure the accuracy of correct classification. This is beneficical because it allows the researchers to extract the probabilities of each class assignment. 
 
-The Random Forest is constructed using python's Sklearn package. The classification will undergo the three testing methods as described previously. In the cross-validation testing the Random Forest parameters will be tweaked and used in all subsequent tests. Three parameters are chosen to alter the performance of the Random Forest: number of estimators (the number of trees in the forest), the number of jobs to run in parallel for both fit and predict, and the maximum depth of the tree. The cross-validation performance and the corresponding parameter values can be found in Table ~\ref{tab:RF_CV}.
+The Random Forest is constructed using python's Sklearn package. The classification will undergo the three testing methods as described previously. In the cross-validation testing the Random Forest parameters will be tweaked and used in all subsequent tests. Three parameters are chosen to alter the performance of the Random Forest:
+\begin{itemize}
+\item the number of trees in the forest ($n\_estimators$)
+\item the number of jobs to run in parallel for both fit and predict ($n\_jobs$)
+\item the maximum depth of the tree ($max\_depth$)
+\end{itemize}
+
+The cross-validation performance and the corresponding parameter values can be found in Table ~\ref{tab:RF_CV}.
 
 \begin{table}[H]
 	\centering
@@ -459,9 +470,24 @@ The Random Forest is constructed using python's Sklearn package. The classificat
 
 The cross-validation test was carried out by setting 30\% of the training data to act as the testing data. The percentage was then calculated based on the number of correctly predicted matchups (predicting correctly when team A or team B wins) divided by the total number of matchups (including false negatives and false positive errors).  Based on the cross-validation, the Random Forest performs with approximately 60\% accuracy with parameters $n\_jobs$ = 2, $n\_estimators$ = 15, and $max\_depth$ = 5. The Random Forest classifier uses these values in all subsequent simulations.
 
-Moving forward, the Log Loss value was extracted and found to be <INSER LOG LOSS>.
+Increasing the number of jobs allows the computer to utilize both cores for both fitting and predicting, and so the class assignment can run in tandem with the construction of each decision tree. Increasing the number of trees in the forest assists in a more accurate prediction of class probabilities by decreasing the effect of a non-congruous prediction of a single tree.
 
-The overall tournament accuracy for the 2013 season was run 5 different times to account for the randomness in the model. The results can be found in Table~\ref{tab:thetable}.
+The Log Loss value was tested using the entire tournament. A vector of probabilities was produced for each team summing to 1 and the value calculated. Due to the randomness assoicated with Random Forests multiple simulations were run as seen in Table~\ref{tab:ll_table}.
+
+\begin{table}[H]
+	\centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    ~   \textbf{Simulation Number}  & \textbf{Log Loss} \\ \hline
+    Smulation 1 & 0.611  \\ \hline
+    Smulation 2 & 0.637\\ \hline
+    Smulation 3 &  0.626\\ \hline
+    \end{tabular}
+    \caption {Tournament Prediction Simulations}
+    \label{tab:ll_table}
+\end{table}
+
+Similarly, the overall tournament accuracy for the 2013 season was run 5 different times to account for the randomness in the model. The results can be found in Table~\ref{tab:thetable}.
 
 The distribution of the simulations is approximately 54\%. The accuracy is lower than the training validation but not by a large amount. This results from the large number of upsets in the 2013 tournament compared to previous years. 
  
