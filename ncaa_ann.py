@@ -25,6 +25,7 @@ from pybrain.structure 			 import TanhLayer
 from pybrain.tools.neuralnets 	 import NNregression, Trainer
 from pybrain.tools.validation 	 import ModuleValidator
 from pybrain.tools.validation 	 import CrossValidator
+from sklearn 					 import metrics
 
 # This merges the data together to create the vector to pass into the learning algos.
 def make_features(games, teams, team_a, team_b, year, value):
@@ -85,7 +86,7 @@ def build_nn(NN_input, numNeurons):
 	print trndata['input'][0], trndata['target'][0], trndata['class'][0]
 
 	# neural net with 2 hidden layers and numNeurons for each
-	net = buildNetwork( trndata.indim, numNeurons, numNeurons, trndata.outdim, hiddenclass=TanhLayer, bias=True)
+	net = buildNetwork( trndata.indim, numNeurons, trndata.outdim, hiddenclass=TanhLayer, bias=True)
 	net.sorted = False
 	net.sortModules()
 
@@ -99,10 +100,22 @@ def modify_teams(teams, mapper):
 
 	return teams
 
-def create_tournament(teams, kag_teams, kag_seeds, year, season):
-	cols = ['name']
+def checker(r):
+	if r[0] > r[1]: return 1
+	else: return 0
+
+def orderer(t):
+	if t[0] > t[1]:
+		temp = t[0]
+		t[0] = t[1]
+		t[1] = temp  
+	return t
+
+def create_tournament(teams, kag_teams, kag_seeds, kag_results, year, season):
+	cols = ['name', 'id']
 	cols += ['s'+str(i) for i in range(1,31)]
-	teams_combined = pd.merge(pd.merge(kag_seeds[kag_seeds.season==season], 
+
+	teams_combined = pd.merge(pd.merge(kag_seeds[kag_seeds.season==season].sort(columns='team'), 
 										kag_teams, 
 										left_on='team', 
 										right_on='id', 
@@ -113,11 +126,24 @@ def create_tournament(teams, kag_teams, kag_seeds, year, season):
 										how='left',
 										suffixes=('_1', '_2'))
 
+	wt = kag_results.ix[kag_results.season==season, ['wteam', 'lteam']]
+	wt['result'] = [checker(t) for t in wt.values]
+	wt = pd.DataFrame([orderer(t) for t in wt.values], columns=['id_1','id_2','res'])
 	team_tuples = [tuple(x) for x in teams_combined[cols].values]
-	tournament = [(i[1:] + j[1:]) for i, j in combinations(team_tuples, 2)]
-	teams = [(i[0], j[0]) for i,j in combinations(team_tuples,2)]
+	tournament = [(i[2:] + j[2:]) for i, j in combinations(team_tuples, 2)]
+	teams = [(i[:2] + j[:2]) for i,j in combinations(team_tuples,2)]
+	teams_df = pd.DataFrame(teams, columns=['t_1','id_1','t_2','id_2'])
+	results = pd.merge(teams_df, wt, on=['id_1','id_2'], how='left')
 
-	return tournament, teams
+	return tournament, teams, results
+
+def log_loss(results, probs):
+	res = results[results.res.notnull()]
+	results['p1'],results['p2'] = (0.2,0.3)
+	probs = results.ix[results.res.notnull(), ['p1','p2']].values.tolist()
+	ll = metrics.log_loss(res.res.tolist(), probs)
+
+	return ll
 
 def run_nn(trainer, tstdata, trndata, numEpoch, numIter):
 	# this will run the neural using the backprop trainer on test and training data with using 3 epochs and 20 iterations
