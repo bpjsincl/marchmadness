@@ -530,15 +530,20 @@ The following section will use this naming convention to describe the different 
 However primarily, the network will have 60 input nodes (as previously described by in Features), and a single output node -- following the form "60-H-1".
 Where H is the number of neurons in a single hidden layer.
 
+Choosing the proper type of neural network for a certain problem can be a critical issue.
 Varying the number of neurons, and the number of hidden layers allows adjustment in the operation and performance of the neural network.
+Additional definitions of a good model include: activation functions and the training function[B1].
 The adjustment of these parameters varies with every application.
 The approach follows a number of different combinations of adjusting these parameters to get the best result.
 However, too many neurons with too many hidden layers may lead to over-fitting the data -- which will cause poor performance when testing.
+The researchers explore the implementation of the described neural network using the $pybrain$ library for Python.
+The $pybrain$ library offers a robust, and relatively straight-forward network, but is known for being comparatively slow.
 
 %The backpropagation algorithm employs the Delta Rule, calculating error at output units.
 %The effects of error in the output node(s) are propagated backward through the network after each training case.
 %The essential idea of backpropagation is to combine a non-linear multi-layer perceptron-like system capable of making decisions with the objective error function of the Delta Rule (McClelland and ;Rumelhart, 1988).
 
+<<<<<<< HEAD
 %In the employment of the backpropagation algorithm, each iteration of training involves the following steps: 
 %\begin{enumerate}
 %\item A particular case of training data is fed through the network in a forward direction, producing results at the output layer
@@ -547,29 +552,77 @@ However, too many neurons with too many hidden layers may lead to over-fitting t
 %\end{enumerate}
 
 %The calculated weight changes are then implemented throughout the network, the next iteration(epoch) begins, and the entire procedure is repeated using the next training pattern.
+=======
+In the employment of the backpropagation algorithm, each pass of training involves the following steps: 
+\begin{enumerate}
+\item A particular case of training data is fed through the network in a forward direction, producing results at the output layer
+\item Error is calculated at the output nodes based on known target information, and the necessary changes to the weights that lead into the output layer are determined based upon this error calculation
+\item  The changes to the weights that lead to the preceding network layers are determined as a function of the properties of the neurons to which they directly connect (weight changes are calculated, layer by layer, as a function of the errors determined for all subsequent layers, working backward toward the input layer) until all necessary weight changes are calculated for the entire network. 
+\end{enumerate}
+
+The calculated weight changes are then implemented throughout the network, the next pass begins, and the entire procedure is repeated using the next training pattern until all training patterns are fed through the network.
+For each time all training data is fed through the network, this is one Epoch.
+The $pybrain$ documentation suggests running a number of training iterations for a defined number of epochs to build a good model for the network.
+>>>>>>> a1e18c26aa2ac675969173ef4b4989c0d58ad266
 
 The final component of the neural network used is a bias for the system.
 A bias is commonly visualized as simply values associated with each node in the hidden and output layers of a network, but in practice are treated in exactly the same manner as other weights, with all biases simply being weights associated with vectors that lead from a single node whose location is outside of the main network and whose activation is always 1.
 
-Three variables are adjusted for assessing the performance of the network:
+Four network structure variables are adjusted for assessing the performance of the network:
 \begin{itemize}
+\item Number training iterations ($\eta$)
 \item Number epochs ($\epsilon$)
 \item Number hidden layers ($\mu$)
 \item Number neurons in each hidden layer($H$)
 \end{itemize}
 
-After each adjustment statistics are collected on training and testing error for the entire dataset.
-The network is then cross-validated and Mean-Squared Error is returned as an initial performance metric following the initial testing and validation protocol.
+After each adjustment to the four variables, statistics are collected on training and testing error for the entire dataset.
+The network is then cross-validated and Mean-Squared Error (MSE) is returned as an initial performance metric following the initial testing and validation protocol.
+The purpose of training is to reduce MSE to a reasonably low value in as few epochs as possible.
+When training is sufficiently long, the plot of MSE will asymptotically decrease to a horizontal straight line at $MSE = 0$.
 Secondary, the network is given all possible match-ups in a tournament to run test type 1 and return the log-loss of the prediction.
 Finally, a bracket is predicted and the prediction accuracy is returned as shown in (INSERT EQ REF TO numCorrect/numGames).
 
-Intro initial testing and validation for errrors and MSE
-(INSERT TABLE with varying "60-H-1" as each row and stats as columns -- errors and MSE)
+Table \ref{tab:nn-sims} provides a small subset of the architecture types attempted, but are chosen to represent the variation in model results shown in Table \ref{tab:nn-error} and \ref{tab:nn-pred}.
+\begin{table}[H]
+	\centering
+    \begin{tabular}{|l|l|l|l|l|}
+    \hline
+    ~    \textbf{Simulation Number} & \textbf{$\mu$} & \textbf{$H$} & \textbf{$\eta$} & \textbf{$\epsilon$}\\ \hline
+    Simulation 1 & 2 & 30 & 10 & 5\\ \hline
+    \end{tabular}
+    \caption {Neural Network Architecture Simulations}
+    \label{tab:nn-sims}
+\end{table}
 
-Intro log loss 
-(INSERT LOG loss table like above)
+The following table summarizes the results for initial testing from a subset of the attempts on network structure (using the "60-H-1" structure, where there can be $\mu$ number of hidden layers with $H$ neurons in each).
 
-Mention bracket prediction accuracy and refer to results section for table comparing prediction and image of bracket)
+\begin{table}[H]
+	\centering
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    ~   \textbf{Simulation} & \textbf{Training Error} & \textbf{Testing Error} & \textbf{MSE}\\ \hline
+    Simulation 1 & 34\% & 30\% & 20\% \\ \hline
+    \end{tabular}
+    \caption {Neural Network Architecture Error \& Cross-Validation (MSE)}
+    \label{tab:nn-error}
+\end{table}
+
+
+The following table summarizes the results from the same subset of attempts on network structure towards log-loss, and tournament bracket prediction tests.
+\begin{table}[H]
+	\centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    ~   \textbf{Simulation} & \textbf{Log-Loss} & \textbf{Accuracy}\\ \hline
+    Simulation 1 & .6 & 30\%\\ \hline
+    \end{tabular}
+    \caption {Neural Network: Tournament Prediction Results}
+    \label{tab:nn-pred}
+\end{table}
+
+The most simple way to explore the differences in methods between random forests and neural networks is comparing bracket tournament prediction by game, accuracy, and log-loss values.
+The following section provides a thorough summary. 
 \section{Results}
 
 \section{Future Work and Conclusions}
