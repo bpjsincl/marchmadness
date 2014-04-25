@@ -636,10 +636,10 @@ Table \ref{tab:nn-sims} provides a small subset of the architecture types attemp
     \hline
     ~    \textbf{Simulation Number} & \textbf{$\mu$} & \textbf{$H$} & \textbf{$\eta$} & \textbf{$\epsilon$}\\ \hline
     	Simulation 1 						& 3 			& 60 		& 2 				& 5			\\ \hline
-    	Simulation X 						& 3 			& 25 		& 5 				& 5 		\\ \hline
-    	Simulation Y 						& 2 			& 30 		& 30 				& 1 		\\ \hline
+    	Simulation 2 						& 3 			& 25 		& 5 				& 5 		\\ \hline
+    	Simulation 3 						& 2 			& 30 		& 30 				& 1 		\\ \hline
     	Simulation 4						& 2 			& 60 		& 2 				& 5 		\\ \hline    
-    	Simulation Z 						& 2 			& 30 		& 50 				& 1 \\ \hline
+    	Simulation 5 						& 2 			& 30 		& 50 				& 1 \\ \hline
     \end{tabular}
     \caption {sNeural Network Architecture Simulations}
     \label{tab:nn-sims}
@@ -653,10 +653,10 @@ The following table summarizes the results for initial testing from a subset of 
     \hline
     ~   \textbf{Simulation} & \textbf{Training Error} & \textbf{Testing Error} & \textbf{MSE}\\ \hline
     	Simulation 1 		& 28\% 						& 31\% 					& 18\% \\ \hline
-	    Simulation X 		& 26\% 						& 28\% 					& 19\% \\ \hline
-	    Simulation Y 		& 27\% 						& 27\% 					& 17\% \\ \hline % 2013
+	    Simulation 2 		& 26\% 						& 28\% 					& 19\% \\ \hline
+	    Simulation 3 		& 27\% 						& 27\% 					& 17\% \\ \hline % 2013
 	    Simulation 4 		& 30\% 						& 31\% 					& 20\% \\ \hline
-	    Simulation Z 		& 26\% 						& 27\% 					& 18\% \\ \hline % 2013
+	    Simulation 5 		& 26\% 						& 27\% 					& 18\% \\ \hline % 2013
     \end{tabular}
     \caption {Neural Network Architecture Error \& Cross-Validation (MSE)}
     \label{tab:nn-error}
@@ -692,15 +692,16 @@ The following table summarizes the results from the same subset of attempts on n
     \hline
     ~   \textbf{Simulation} & \textbf{Log-Loss} & \textbf{Accuracy}\\ \hline
     	Simulation 1 		& 0.77 				& 40\%\\ \hline
-    	Simulation X 		& 0.65 				& 49\% \\ \hline
-    	Simulation Y 		& 0.73 				& 45\% \\ \hline
+    	Simulation 2 		& 0.65 				& 49\% \\ \hline
+    	Simulation 3 		& 0.73 				& 45\% \\ \hline
     	Simulation 4 		& 0.68 				& 28\% \\ \hline    
-    	Simulation Z 		& 0.71 				& 45\% \\ \hline	
+    	Simulation 5 		& 0.71 				& 45\% \\ \hline	
     \end{tabular}
     \caption {Neural Network: Tournament Prediction Results}
     \label{tab:nn-pred}
 \end{table}
-< briefly mention best result and why it might be the best result>
+The best result for the neural network came with the "60-25-25-25-1" topology, which shows three hidden layers with 25 neurons in each hidden layer.
+The Simulation was run with 5 epochs and 5 iterations using the OutputLayer defined as $SoftMaxLayer$.
 
 The most simple way to explore the differences in methods between random forests and neural networks is comparing bracket tournament prediction by game, accuracy, and log-loss values.
 The following section provides a thorough summary. 
@@ -716,7 +717,7 @@ One is that the Random Forest predicts 4 upsets in the first round.
 The seeding is the result of the team's statistics from the regular season play. 
 The Random Forest uses these statistics and due to the large difference in seeding biases the higher ranked seed in the majority of cases. 
 Due to the large number of upsets in the first round of the 2013 tournament, the Random Forest does not perform well. 
-These errors then propagate throughout the rest of the tournment. 
+These errors then propagate throughout the rest of the tournament. 
 
 Another observation that can be drawn from the predictions is that in the last three rounds of play there were only 5 total teams in the possible 15 total matchups that made it through in the predictions. 
 In actual bracket predictions, it is more beneficial to predict teams in later rounds than in earlier rounds. 
