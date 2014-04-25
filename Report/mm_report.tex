@@ -528,7 +528,7 @@ The accuracy is computed using \eqref{pred-accuracy}.
 
 The distribution of the simulations is approximately 54\%.
 The accuracy is lower than the training validation but not by a large amount. 
-This results from the large number of upsets in the 2013 tournament compared to previous years. 
+This results from the fact that the 2013 tournament had the largest number of upsets in NCAA history next to the 2014 season \cite{BenZauzmer:2014}.
  
 \begin{table}[H]
 	\centering
@@ -544,6 +544,8 @@ This results from the large number of upsets in the 2013 tournament compared to 
     \caption {Tournament Prediction Simulations}
     \label{tab:thetable}
 \end{table}
+
+Going forward, different parameters could have been incorporated into the training of the model. Controlling the number of times a leaf has been split, or the number of samples that is required to split a leaf could have direct impacts on the results of the decision tree. Implementing these features would yield better results if the training size incorporated a greater number of years, which is the reason why these features remained untouched. Increasing the data set would thereby increase the number of parameters that could be optimized. 
 
 %\begin{figure}[htb]
 %\centering
@@ -677,6 +679,7 @@ Additionally, increasing the number of hidden layers beyond three was reasearche
 Having many hidden layers presents a challenge for training and can easily lead to overfitting \cite{bengio2007scaling}.
 
 The following table summarizes the results from the same subset of attempts on network structure towards log-loss, and tournament bracket prediction tests.
+
 \begin{table}[H]
 	\centering
     \begin{tabular}{|l|l|l|}
