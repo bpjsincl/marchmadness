@@ -345,20 +345,17 @@ Email: dsneil@uwaterloo.ca}
 
 
 \begin{abstract}
-%Mention something about kaggle
-%change that second scentence wording
-
 %Bracket and Game prediction is continually growing in popularity due to revenue production over various gambling mediums.
 March Madness is a sporting event held every year, with competing Division I NCAA college basketball teams, and attracts significant gambling and competition to predict winners.
-Outside of the typical gambling realm, Kaggle has held a competition this season, offering \$15,000 to the winner.
-The researchers did not participate, but are using this competition, its data and results, as a foundation for the analysis.
+Outside of the typical gambling realm, Kaggle held a competition this season, offering \$15,000 to the winner.
+The researchers did not participate, but used this competition, its data and results, as a foundation for the analysis.
 Many tactics are currently being reasearched and employed, such as: ANNs, varying regression techniques, probabalistic optimization, SVM's, and genetic algorithms.
 However, due to high uncertainty in outcomes, none have been extremely accurate.
 The researchers applied Artificial Neural Networks and Random Forests, with data gathered from Kaggle and Ken Pomeroy.
 Using these techniques, the researchers attempted to predict the winners of this tournament, constructing a traditional bracket and outcome of each potential matchup with a percentage confidence.
 The previous seasons assisted in the process of training and testing, and models were benchmarked against specific seasons.
-Additionally, to determine techniques success, the researchers used Log Loss and evaluated predictions against Kaggle results.
-Through the analysis the researchers found that the Random Forest is the superior method, with bracket prediction accuracy of <> and log loss of <>.
+Additionally, to determine a techniques success, Log Loss of predictions was calculated and compared against Kaggle results.
+Through the analysis the researchers found that the Random Forest is the superior method, with the best bracket prediction accuracy of 58% and log loss of 0.611.
 \end{abstract}
 
 
@@ -404,17 +401,6 @@ In both approaches it is not necessary that the researchers know or understand w
   \item Free Throw Rate
   \item Effective Field Goal Percentage Against
 \end{itemize}
-
-%\begin{longtable}[H] {|p{1cm}|p{1cm}|p{1cm}|}
-%\hline
-%    Tempo                                   & Adjusted Tempo                  & Offensive Efficiency                    \\ \hline
-%    Adjusted Offensive Efficiency           & Defensive Efficiency            & Adjusted Defensive Efficiency           \\ \hline
-%    Pythagorean Strength of Schedule        & Effective Field Goal Percentage & Effective Field Goal Percentage         \\ \hline
-%    Turnover Percentage                     & Offensive Rebounding Percentage & Free Throw Rate                         \\ \hline
-%    Effective Field Goal Percentage Against & Turnover Percentage Against     & Offensive Rebounding Percentage Against \\ \hline
-%    \label{tab:stats}
-%	\caption{Integration tests for Relay Framework}
-%\end{longtable}
 
 The researchers discussed running a feature reduction process, such as Principle Component Analysis (PCA), but ultimately decided it is not currently needed. 
 The systems, ANN and RF, ran well with the current set of features and dimensionality reduction was not needed, as there are only a total of 60 features.
@@ -529,7 +515,7 @@ The accuracy is computed using \eqref{pred-accuracy}.
 
 The distribution of the simulations is approximately 54\%.
 The accuracy is lower than the training validation but not by a large amount. 
-This results from the large number of upsets in the 2013 tournament compared to previous years. 
+This results from the fact that the 2013 tournament had the largest number of upsets in NCAA history next to the 2014 season \cite{BenZauzmer:2014}.
  
 \begin{table}[H]
 	\centering
@@ -545,6 +531,8 @@ This results from the large number of upsets in the 2013 tournament compared to 
     \caption {Tournament Prediction Simulations}
     \label{tab:thetable}
 \end{table}
+
+Going forward, different parameters could have been incorporated into the training of the model. Controlling the number of times a leaf has been split, or the number of samples that is required to split a leaf could have direct impacts on the results of the decision tree. Implementing these features would yield better results if the training size incorporated a greater number of years, which is the reason why these features remained untouched. Increasing the data set would thereby increase the number of parameters that could be optimized. 
 
 %\begin{figure}[htb]
 %\centering
@@ -608,7 +596,7 @@ Same as with the Random Forest technique, 70\% of data is used for training, and
 That same 30\% is used for cross-validation.
 $BackPropTrainer$ is used with its generic construction except for setting the $weightdecay$ parameter to 0.01.
 As mentioned, the training data contains all features from season 2010 to 2013.
-In introducing a $weightdecay$ of non-zero for features from earlier seasons, the network reduces their impact. %how about this wording?
+In introducing a $weightdecay$ of non-zero for features from earlier seasons, the network reduces their impact.
 The essential idea of backpropagation is to combine a non-linear multi-layer perceptron-like system capable of making decisions with the objective error function of the Delta Rule \cite{McClelland-1988}.
 The network is trained with the desired number of epochs and iterations, and performance statistics collected.
 For each time all training data is fed through the network, this is one Epoch.
@@ -651,6 +639,7 @@ Table \ref{tab:nn-sims} provides a small subset of the architecture types attemp
     	Simulation X 						& 3 			& 25 		& 5 				& 5 		\\ \hline
     	Simulation Y 						& 2 			& 30 		& 30 				& 1 		\\ \hline
     	Simulation 4						& 2 			& 60 		& 2 				& 5 		\\ \hline    
+    	Simulation Z 						& 2 			& 30 		& 50 				& 1 \\ \hline
     \end{tabular}
     \caption {sNeural Network Architecture Simulations}
     \label{tab:nn-sims}
@@ -666,7 +655,8 @@ The following table summarizes the results for initial testing from a subset of 
     	Simulation 1 		& 28\% 						& 31\% 					& 18\% \\ \hline
 	    Simulation X 		& 26\% 						& 28\% 					& 19\% \\ \hline
 	    Simulation Y 		& 27\% 						& 27\% 					& 17\% \\ \hline % 2013
-	    Simulation 4 		& 30\% 						& 31\% 					& 20\% \\ \hline % 2013
+	    Simulation 4 		& 30\% 						& 31\% 					& 20\% \\ \hline
+	    Simulation Z 		& 26\% 						& 27\% 					& 18\% \\ \hline % 2013
     \end{tabular}
     \caption {Neural Network Architecture Error \& Cross-Validation (MSE)}
     \label{tab:nn-error}
@@ -678,6 +668,7 @@ The log loss, testing error, and bracket incorrectness were generally much highe
 Analysing the results further lead to the discovering of these ``highly trained'' networks favouring extreme predictions (i.e. predictions greater than 99\%).
 Incorrect extreme predictions are penalized heavily in the log loss calculation, which explained why this value was found to be much larger.
 Another observation made was that predictions generally favoured the first team entered in the feature vector, which explained the lower bracket correctness.
+
 The researchers conclude that high epochs and iterations lead to over-training of the networks and did not use any of the results generated from these tests.
 
 Additionally, increasing the number of hidden layers beyond three was researched, but not tested.
@@ -694,6 +685,7 @@ To explore further in the functionality of $pybrain$, the researchers changed th
 Simulation 4 follows this setup, but did not yield better results for tournament bracket prediction.
 
 The following table summarizes the results from the same subset of attempts on network structure towards log-loss, and tournament bracket prediction tests.
+
 \begin{table}[H]
 	\centering
     \begin{tabular}{|l|l|l|}
@@ -702,7 +694,8 @@ The following table summarizes the results from the same subset of attempts on n
     	Simulation 1 		& 0.77 				& 40\%\\ \hline
     	Simulation X 		& 0.65 				& 49\% \\ \hline
     	Simulation Y 		& 0.73 				& 45\% \\ \hline
-    	Simulation 4 		& 0.68 				& 28\% \\ \hline    	
+    	Simulation 4 		& 0.68 				& 28\% \\ \hline    
+    	Simulation Z 		& 0.71 				& 45\% \\ \hline	
     \end{tabular}
     \caption {Neural Network: Tournament Prediction Results}
     \label{tab:nn-pred}
@@ -717,6 +710,17 @@ Table \ref{tab:comparison} shows the match-ups of the 2013 tournament.
 Each game has two teams and the actual winner, and then each method provides a prediction. 
 The letter represents the division and the number represents the corresponding seed.
 For a visual representation, Figure \ref{bracket} is provided, but for simplicity of comparison, the table is used.
+
+From the table there are a few results that can be observed. 
+One is that the Random Forest predicts 4 upsets in the first round. 
+The seeding is the result of the team's statistics from the regular season play. 
+The Random Forest uses these statistics and due to the large difference in seeding biases the higher ranked seed in the majority of cases. 
+Due to the large number of upsets in the first round of the 2013 tournament, the Random Forest does not perform well. 
+These errors then propagate throughout the rest of the tournment. 
+
+Another observation that can be drawn from the predictions is that in the last three rounds of play there were only 5 total teams in the possible 15 total matchups that made it through in the predictions. 
+In actual bracket predictions, it is more beneficial to predict teams in later rounds than in earlier rounds. 
+With such a few number of predicted teams making it to later rounds, it would result in poor bracket performance amongst fantasy leagues.
 
 \begin{figure}[H]
 \centering
@@ -803,11 +807,6 @@ R6CH & Y07 & X02 & Y01 & Y07 &  NN  \\ \hline
 \end{table}
 
 \section{Future Work and Conclusions}
-%incorportating player statistics
-%using some type of weighting function or window to calculate the aggregate metrics of each team
-%incorporate ``meta-strats'' (i.e. manually changing things within the bracket). Didn't do this because it is not MI, but if we had a specific strategy in mind we could alter the results of the MI process (e.g. make all florida state games 1.0 for tehm if we think they are going to win because we get the most benefit from this). This leads to more gambling
-%
-
 The researchers believe that some improvements could be made to the model to better capture a teams current performance, and hopefully generate more accurate predictions. 
 However, NCAA basketball is known for its high uncertainty in outcomes (i.e. large number of ``upsets''), so creating a more detailed model of a team may not lead to better predictions.
 Therefore, further training and testing would need to be performed to validate these hypotheses.
@@ -815,8 +814,8 @@ Therefore, further training and testing would need to be performed to validate t
 Currently the features used are team-wide and do not include any player specific information. 
 This could be important in the prediction as often in a single game within the tournament a single player can change the outcome of the match-up.
 For example, if a player has been playing extraordinarily well in the 10 games leading up to the tournament, this might be an important feature to include.
-On the flip-side, if a key player becomes injured for the tournament then the team may not do as well as the statistics suggest.
-Therefore, select player statistics might be an important addition to the feature range used for bracket prediction.
+Conversely, if a key player becomes injured for the tournament then the team may not do as well as the statistics suggest.
+Therefore, select player statistics might be an important addition to the feature range used for outcome prediction.
 
 Additionally, features are calculated over the entire season and therefore are not necessarily indicative of a team during the season. 
 The researchers firstly propose the use of a weighting function. 
@@ -825,17 +824,24 @@ Secondly, a ``window'' could be used to tabulate the aggregate metrics, meaning 
 This again attempts to more accurately capture current team performance. 
 The season-wide statistics mask performance nuances and using either of these methods could better represent the growth of a team over the season and how it contributes to their results over time.
 
-Next, while this does not necessarily pertain to machine learning, <``meta-strategies''> may boost log-loss performance. %not sure what you want for meta-strategies. I'll leave it
+Next, auxiliary, and not directly machine learning, strategies may boost log-loss performance, but may also compound the effects of incorrect predictions. 
 An example of such a strategy is, if a weaker-seeded team is considered in later rounds, this means they beat stronger-seeds and therefore are a higher performing team than initially determined.
 This is useful information for making predictions and could be incorporated as a feature in the model, measuring ``perceived strength'', ``updated seed'', or some other power rating. 
 This also does not solely apply to weak-seeds. 
-While this power rating would have a larger impact on weaker teams, it would affect any team making it further in the tournament, rewarding them for their performance. <maybe another sentence>
+While this power rating would have a larger impact on weaker teams, it would affect any team making it further in the tournament, rewarding them for their performance.
 
-Lastly, the two prediction methods above (full tournament and bracket) could be used in tandem to generate a ``custom'' full tournament prediction. 
+Another such strategy could be to combine the two prediction methods above (full tournament and bracket) to generate a ``custom'' full tournament prediction. 
 The bracket outlines the researchers ``selected'' predictions, based on their chosen model characteristics selected and training processes, and the full tournament can be modified to reflect this.
 Each win in the bracket essentially represents a 1.0 likelihood prediction for the winning team in that game. 
 To achieve maximum benefit for this potential win, the full tournament should reflect this. 
-While this approach can lead to greater losses, <it reflects the best estimates of the model, something about our best guesses based on our models>.
+While this approach can lead to greater losses, it reflects the best estimates of the researchers selected model.
+
+In conclusion, this research represents a solid foundation for future work in this domain. 
+While many improvements can be made to the model, the results found are promising and the researchers believe incorporating the above recommendations should certainly assist in prediction accuracy. 
+The 2013 tournament had the most upsets in the history of NCAA March Madness, so a bracket accuracy of approximately 50\% is an acceptable result.
+Additionally, when comparing the two methods against 2014 Kaggle, it is that while the predictions do not match those of top performers (and cannot be directly compared), the best Log Loss values are in the correct range. 
+The top and mean results for the 2014 season were 0.53 and 0.58 respectively, and top performing from Random Forest model was 0.61. 
+%<A CONCLUDING SENTENCE>
 
 % use section* for acknowledgement
 \section*{Acknowledgment}
