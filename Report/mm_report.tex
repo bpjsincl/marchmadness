@@ -878,7 +878,6 @@ The authors would like to thank Ken Pomeroy for collecting, calculating, and org
 \newpage
 \onecolumn
 \section{Appendix A: Code Snippets}
-\subsection{Neural Network Setup}
 \definecolor{keywords}{RGB}{255,0,90}
 \definecolor{comments}{RGB}{0,0,113}
 \definecolor{red}{RGB}{160,0,0}
@@ -895,7 +894,7 @@ The authors would like to thank Ken Pomeroy for collecting, calculating, and org
 	  frame=single,                    % adds a frame around the code
 	  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
 	  keywordstyle=\color{blue},       % keyword style
-	  language=Octave,                 % the language of the code
+	  language=Python,                 % the language of the code
 	  morekeywords={*,...},            % if you want to add more keywords to the set
 	  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
 	  numbersep=5pt,                   % how far the line-numbers are from the code
@@ -906,8 +905,11 @@ The authors would like to thank Ken Pomeroy for collecting, calculating, and org
 	  tabsize=2,                       % sets default tabsize to 2 spaces
 	  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
- 
-\lstinputlisting{..//ncaa_ann.py}
+\subsection{Neural Network Build and Run Snippet}
+\lstinputlisting{ann.py}
+
+\subsection{Random Forest Build and Run Snippet}
+\lstinputlisting{random_forest.py}
 \end{document}
 
 
