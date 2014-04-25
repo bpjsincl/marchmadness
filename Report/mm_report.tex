@@ -837,8 +837,11 @@ Each win in the bracket essentially represents a 1.0 likelihood prediction for t
 To achieve maximum benefit for this potential win, the full tournament should reflect this. 
 While this approach can lead to greater losses, it reflects the best estimates of the researchers selected model.
 
+Comparing the two methods together the Random Forest would consistenly outperform the Neural Network. By leveraging the ensemble learning method, the Random Forest does a good job of predicting the probabilities of each matchup. If multiple decision trees have conflicting results the probabilities are very similar, which is why some probabilities were assigned equal likelihood. For this reason the log loss would generally yield better results in comparison to the Neural Network.
+
 In conclusion, this research represents a solid foundation for future work in this domain. 
 While many improvements can be made to the model, the results found are promising and the researchers believe incorporating the above recommendations should certainly assist in prediction accuracy. 
+
 The 2013 tournament had the most upsets in the history of NCAA March Madness, so a bracket accuracy of approximately 50\% is an acceptable result.
 Additionally, when comparing the two methods against 2014 Kaggle, it is that while the predictions do not match those of top performers (and cannot be directly compared), the best Log Loss values are in the correct range. 
 The top and mean results for the 2014 season were 0.53 and 0.58 respectively, and top performing from Random Forest model was 0.61. 
