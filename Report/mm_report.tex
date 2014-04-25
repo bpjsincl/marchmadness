@@ -514,7 +514,7 @@ The accuracy is computed using \eqref{pred-accuracy}.
 
 The distribution of the simulations is approximately 54\%.
 The accuracy is lower than the training validation but not by a large amount. 
-This results from the large number of upsets in the 2013 tournament compared to previous years. 
+This results from the fact that the 2013 tournament had the largest number of upsets in NCAA history next to the 2014 season \cite{BenZauzmer:2014}.
  
 \begin{table}[H]
 	\centering
@@ -530,6 +530,8 @@ This results from the large number of upsets in the 2013 tournament compared to 
     \caption {Tournament Prediction Simulations}
     \label{tab:thetable}
 \end{table}
+
+Going forward, different parameters could have been incorporated into the training of the model. Controlling the number of times a leaf has been split, or the number of samples that is required to split a leaf could have direct impacts on the results of the decision tree. Implementing these features would yield better results if the training size incorporated a greater number of years, which is the reason why these features remained untouched. Increasing the data set would thereby increase the number of parameters that could be optimized. 
 
 %\begin{figure}[htb]
 %\centering
@@ -665,6 +667,7 @@ Additionally, increasing the number of hidden layers beyond two was reasearched,
 Having many hidden layers presents a challenge for training and can easily lead to overfitting \cite{bengio2007scaling}.
 
 The following table summarizes the results from the same subset of attempts on network structure towards log-loss, and tournament bracket prediction tests.
+
 \begin{table}[H]
 	\centering
     \begin{tabular}{|l|l|l|}
@@ -688,6 +691,17 @@ Table \ref{tab:comparison} shows the match-ups of the 2013 tournament.
 Each game has two teams and the actual winner, and then each method provides a prediction. 
 The letter represents the division and the number represents the corresponding seed.
 For a visual representation, Figure \ref{bracket} is provided, but for simplicity of comparison, the table is used.
+
+From the table there are a few results that can be observed. 
+One is that the Random Forest predicts 4 upsets in the first round. 
+The seeding is the result of the team's statistics from the regular season play. 
+The Random Forest uses these statistics and due to the large difference in seeding biases the higher ranked seed in the majority of cases. 
+Due to the large number of upsets in the first round of the 2013 tournament, the Random Forest does not perform well. 
+These errors then propagate throughout the rest of the tournment. 
+
+Another observation that can be drawn from the predictions is that in the last three rounds of play there were only 5 total teams in the possible 15 total matchups that made it through in the predictions. 
+In actual bracket predictions, it is more beneficial to predict teams in later rounds than in earlier rounds. 
+With such a few number of predicted teams making it to later rounds, it would result in poor bracket performance amongst fantasy leagues.
 
 \begin{figure}[H]
 \centering
