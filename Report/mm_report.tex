@@ -700,6 +700,17 @@ Each game has two teams and the actual winner, and then each method provides a p
 The letter represents the division and the number represents the corresponding seed.
 For a visual representation, Figure \ref{bracket} is provided, but for simplicity of comparison, the table is used.
 
+From the table there are a few results that can be observed. 
+One is that the Random Forest predicts 4 upsets in the first round. 
+The seeding is the result of the team's statistics from the regular season play. 
+The Random Forest uses these statistics and due to the large difference in seeding biases the higher ranked seed in the majority of cases. 
+Due to the large number of upsets in the first round of the 2013 tournament, the Random Forest does not perform well. 
+These errors then propagate throughout the rest of the tournment. 
+
+Another observation that can be drawn from the predictions is that in the last three rounds of play there were only 5 total teams in the possible 15 total matchups that made it through in the predictions. 
+In actual bracket predictions, it is more beneficial to predict teams in later rounds than in earlier rounds. 
+With such a few number of predicted teams making it to later rounds, it would result in poor bracket performance amongst fantasy leagues.
+
 \begin{figure}[H]
 \centering
 	\includegraphics[scale=.28]{bracket_blank.pdf}%
